@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { ethers } from 'ethers';
 
 const Web3Context = createContext();
@@ -251,6 +251,7 @@ export function Web3Provider({ children }) {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useWeb3() {
   const context = useContext(Web3Context);
   if (!context) {

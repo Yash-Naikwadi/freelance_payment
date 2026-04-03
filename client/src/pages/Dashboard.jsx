@@ -26,6 +26,9 @@ export default function Dashboard() {
     navigate('/');
   };
 
+  // Determine user role for the JobsList component
+  const userRole = isClient ? 'client' : (isFreelancer ? 'freelancer' : null);
+
   return (
     <div className="dashboard-container">
       <nav className="dashboard-navbar">
@@ -62,24 +65,32 @@ export default function Dashboard() {
                 className={`tab-btn ${activeTab === 'jobs' ? 'active' : ''}`}
                 onClick={() => setActiveTab('jobs')}
               >
-                Jobs
+                My Jobs
               </button>
               {isClient && (
                 <button
                   className={`tab-btn ${activeTab === 'post' ? 'active' : ''}`}
                   onClick={() => setActiveTab('post')}
                 >
-                  Post Job
+                  Post a New Job
                 </button>
               )}
             </div>
 
             <div className="tab-content">
               {activeTab === 'jobs' && (
-                <JobsList userRole={isClient ? 'client' : 'freelancer'} />
+                <div className="jobs-section">
+                  <div className="section-header">
+                    <h2>{isClient ? 'Jobs You Posted' : 'Jobs Assigned to You'}</h2>
+                    <p>Manage your blockchain-secured freelance contracts</p>
+                  </div>
+                  <JobsList userRole={userRole} />
+                </div>
               )}
               {activeTab === 'post' && isClient && (
-                <PostJobForm />
+                <div className="post-section">
+                  <PostJobForm />
+                </div>
               )}
             </div>
           </>
