@@ -4,7 +4,7 @@ import JobCard from './JobCard';
 import './JobsList.css';
 
 export default function JobsList({ userRole }) {
-  const { getNextJobId, getJob, error } = useWeb3();
+  const { getNextJobId, getJob } = useWeb3();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
