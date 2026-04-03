@@ -35,9 +35,9 @@ export const Web3Provider = ({ children }) => {
       setIsConnected(true);
 
       // Initialize contracts
-      if (USER_REGISTRY_ADDRESS && ESCROW_ADDRESS) {
+      if (USER_REGISTRY_ADDRESS && FREELANCE_ESCROW_ADDRESS) {
         const userReg = new Contract(USER_REGISTRY_ADDRESS, USER_REGISTRY_ABI, newSigner);
-        const escrow = new Contract(ESCROW_ADDRESS, FREELANCE_ESCROW_ABI, newSigner);
+        const escrow = new Contract(FREELANCE_ESCROW_ADDRESS, FREELANCE_ESCROW_ABI, newSigner);
         setUserRegistryContract(userReg);
         setEscrowContract(escrow);
       }

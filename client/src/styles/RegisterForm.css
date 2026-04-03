@@ -1,0 +1,128 @@
+.register-form {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.register-header h1 {
+  font-size: 2rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.register-header p {
+  font-size: 1rem;
+  color: #666;
+}
+
+.register-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.register-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.register-card:hover {
+  border-color: #17a2b8;
+  box-shadow: 0 4px 16px rgba(23, 162, 184, 0.1);
+  transform: translateY(-4px);
+}
+
+.card-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.register-card h3 {
+  font-size: 1.3rem;
+  color: #1a1a1a;
+  margin-bottom: 0.5rem;
+}
+
+.register-card > p {
+  color: #666;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+.features-list {
+  list-style: none;
+  text-align: left;
+  margin-bottom: 1.5rem;
+  padding: 0;
+}
+
+.features-list li {
+  color: #666;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.register-btn {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.client-btn {
+  background: #17a2b8;
+  color: white;
+}
+
+.client-btn:hover:not(:disabled) {
+  background: #138496;
+  box-shadow: 0 4px 12px rgba(23, 162, 184, 0.3);
+}
+
+.freelancer-btn {
+  background: #ffc107;
+  color: #333;
+}
+
+.freelancer-btn:hover:not(:disabled) {
+  background: #ffb300;
+  box-shadow: 0 4px 12px rgba(255, 193, 7, 0.3);
+}
+
+.register-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: #fee;
+  color: #c33;
+  padding: 1rem;
+  border-radius: 6px;
+  border: 1px solid #fcc;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .register-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .register-grid {
+    grid-template-columns: 1fr;
+  }
+}
