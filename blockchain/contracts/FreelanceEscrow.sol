@@ -15,6 +15,7 @@ contract FreelanceEscrow {
         bool fundsDeposited;
         bool workSubmitted;
         bool paymentReleased;
+        bool cancelled;
     }
 
     // Mapping to store jobs, using a unique job ID
@@ -48,7 +49,8 @@ contract FreelanceEscrow {
             description: _description,
             fundsDeposited: false,
             workSubmitted: false,
-            paymentReleased: false
+            paymentReleased: false,
+            cancelled: false
         });
 
         emit JobPosted(nextJobId, msg.sender, _description, _amount);
@@ -96,11 +98,11 @@ contract FreelanceEscrow {
         require(jobs[_jobId].fundsDeposited, "Funds must be deposited to cancel the job");
         require(!jobs[_jobId].workSubmitted, "Cannot cancel job after work has been submitted");
         require(!jobs[_jobId].paymentReleased, "Payment already released");
+        require(!jobs[_jobId].cancelled, "Job is already cancelled");
 
+        jobs[_jobId].cancelled = true;
         jobs[_jobId].client.transfer(jobs[_jobId].amount);
         emit JobCancelled(_jobId, msg.sender);
-        // Optionally, you might want to mark the job as cancelled or delete it
-        // delete jobs[_jobId];
     }
 
     // Fallback function to receive Ether
@@ -118,7 +120,8 @@ contract FreelanceEscrow {
         string memory description,
         bool fundsDeposited,
         bool workSubmitted,
-        bool paymentReleased
+        bool paymentReleased,
+        bool cancelled
     ) {
         Job storage job = jobs[_jobId];
         return (
@@ -128,7 +131,8 @@ contract FreelanceEscrow {
             job.description,
             job.fundsDeposited,
             job.workSubmitted,
-            job.paymentReleased
+            job.paymentReleased,
+            job.cancelled
         );
     }
 }

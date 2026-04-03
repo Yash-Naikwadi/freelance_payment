@@ -69,6 +69,10 @@
   color: #059669;
 }
 
+.status-item.cancelled {
+  color: #dc2626;
+}
+
 .status-dot {
   width: 8px;
   height: 8px;
@@ -79,6 +83,11 @@
 .status-item.completed .status-dot {
   background: #10b981;
   box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.status-item.cancelled .status-dot {
+  background: #ef4444;
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
 }
 
 .status-arrow {
@@ -162,11 +171,28 @@
   box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
 }
 
+.cancel-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.cancel-btn:hover:not(:disabled) {
+  background: #b91c1c;
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
 .completed-btn {
   background: #f3f4f6;
   color: #059669;
   cursor: default;
   border: 1px solid #d1fae5;
+}
+
+.cancelled-btn {
+  background: #fef2f2;
+  color: #dc2626;
+  cursor: default;
+  border: 1px solid #fecaca;
 }
 
 .action-btn:disabled {

@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "C:\\Users\\Admin\\Desktop\\freelance_payment\\blockchain\\contracts\\FreelanceEscrow.sol": {
-      "lastModificationDate": 1775065724280,
-      "contentHash": "9eb81a2d00ad3f0965a57ddabc23ed5e",
+      "lastModificationDate": 1775214206281,
+      "contentHash": "2582f29d6d431982e4193d90fa6e538b",
       "sourceName": "contracts/FreelanceEscrow.sol",
       "solcConfig": {
         "version": "0.8.0",

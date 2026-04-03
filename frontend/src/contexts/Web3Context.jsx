@@ -304,6 +304,11 @@ const ESCROW_ABI = [
           "internalType": "bool",
           "name": "paymentReleased",
           "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "cancelled",
+          "type": "bool"
         }
       ],
       "stateMutability": "view",
@@ -352,6 +357,11 @@ const ESCROW_ABI = [
         {
           "internalType": "bool",
           "name": "paymentReleased",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "cancelled",
           "type": "bool"
         }
       ],
@@ -612,6 +622,24 @@ export function Web3Provider({ children }) {
     }
   };
 
+  // Cancel job
+  const cancelJob = async (jobId) => {
+    try {
+      setError(null);
+      if (!escrow) {
+        setError("Escrow contract not initialized");
+        return false;
+      }
+
+      const tx = await escrow.cancelJob(jobId);
+      await tx.wait();
+      return true;
+    } catch (err) {
+      setError(err.message);
+      return false;
+    }
+  };
+
   // Get next job ID
   const getNextJobId = async () => {
     try {
@@ -636,7 +664,8 @@ export function Web3Provider({ children }) {
         description: job[3],
         fundsDeposited: job[4],
         workSubmitted: job[5],
-        paymentReleased: job[6]
+        paymentReleased: job[6],
+        cancelled: job[7]
       };
     } catch (err) {
       console.error(err);
@@ -659,6 +688,7 @@ export function Web3Provider({ children }) {
     depositFunds,
     submitWork,
     releasePayment,
+    cancelJob,
     getNextJobId,
     getJob
   };

@@ -52,6 +52,7 @@ export default function MyJobsView({ userRole }) {
   };
 
   const getJobStatus = (job) => {
+    if (job.cancelled) return { label: "Cancelled", color: "red" };
     if (job.paymentReleased) return { label: "Completed", color: "emerald" };
     if (job.workSubmitted) return { label: "Work Submitted", color: "amber" };
     if (job.fundsDeposited) return { label: "In Progress", color: "blue" };
@@ -94,6 +95,7 @@ export default function MyJobsView({ userRole }) {
           amber: "bg-amber-50 border-amber-200 text-amber-700",
           blue: "bg-blue-50 border-blue-200 text-blue-700",
           slate: "bg-slate-50 border-slate-200 text-slate-700",
+          red: "bg-red-50 border-red-200 text-red-700",
         };
 
         return (

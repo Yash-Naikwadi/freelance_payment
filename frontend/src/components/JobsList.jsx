@@ -3,7 +3,7 @@ import { useWeb3 } from '../contexts/Web3Context';
 import '../styles/JobsList.css';
 
 export default function JobsList({ userRole }) {
-  const { getNextJobId, getJob, submitWork, depositFunds, releasePayment, account, error } = useWeb3();
+  const { getNextJobId, getJob, submitWork, depositFunds, releasePayment, cancelJob, account, error } = useWeb3();
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [actionLoading, setActionLoading] = useState(null);
@@ -85,6 +85,19 @@ export default function JobsList({ userRole }) {
     }
   };
 
+  const handleCancelJob = async (jobId) => {
+    setActionLoading(jobId);
+    const success = await cancelJob(jobId);
+    setActionLoading(null);
+
+    if (success) {
+      alert('Job cancelled successfully! Funds have been refunded.');
+      window.location.reload();
+    } else {
+      alert(error || 'Failed to cancel job');
+    }
+  };
+
   const formatAddress = (address) => {
     return `${address.slice(0, 6)}...${address.slice(-4)}`;
   };
@@ -120,20 +133,29 @@ export default function JobsList({ userRole }) {
           </div>
 
           <div className="job-status">
-            <div className={`status-item ${job.fundsDeposited ? 'completed' : ''}`}>
-              <div className="status-dot"></div>
-              <span>Funds Deposited</span>
-            </div>
-            <div className="status-arrow">→</div>
-            <div className={`status-item ${job.workSubmitted ? 'completed' : ''}`}>
-              <div className="status-dot"></div>
-              <span>Work Submitted</span>
-            </div>
-            <div className="status-arrow">→</div>
-            <div className={`status-item ${job.paymentReleased ? 'completed' : ''}`}>
-              <div className="status-dot"></div>
-              <span>Payment Released</span>
-            </div>
+            {job.cancelled ? (
+              <div className="status-item cancelled">
+                <div className="status-dot"></div>
+                <span>Job Cancelled</span>
+              </div>
+            ) : (
+              <>
+                <div className={`status-item ${job.fundsDeposited ? 'completed' : ''}`}>
+                  <div className="status-dot"></div>
+                  <span>Funds Deposited</span>
+                </div>
+                <div className="status-arrow">→</div>
+                <div className={`status-item ${job.workSubmitted ? 'completed' : ''}`}>
+                  <div className="status-dot"></div>
+                  <span>Work Submitted</span>
+                </div>
+                <div className="status-arrow">→</div>
+                <div className={`status-item ${job.paymentReleased ? 'completed' : ''}`}>
+                  <div className="status-dot"></div>
+                  <span>Payment Released</span>
+                </div>
+              </>
+            )}
           </div>
 
           <div className="job-details">
@@ -148,45 +170,60 @@ export default function JobsList({ userRole }) {
           </div>
 
           <div className="job-actions">
-            {userRole === 'client' && (
+            {job.cancelled ? (
+              <div className="action-btn cancelled-btn">✓ Job Cancelled</div>
+            ) : (
               <>
-                {!job.fundsDeposited && (
-                  <button
-                    className="action-btn deposit-btn"
-                    onClick={() => handleDepositFunds(job.id, job.amount)}
-                    disabled={actionLoading === job.id}
-                  >
-                    {actionLoading === job.id ? 'Depositing...' : 'Deposit Funds'}
-                  </button>
+                {userRole === 'client' && (
+                  <>
+                    {!job.fundsDeposited && (
+                      <button
+                        className="action-btn deposit-btn"
+                        onClick={() => handleDepositFunds(job.id, job.amount)}
+                        disabled={actionLoading === job.id}
+                      >
+                        {actionLoading === job.id ? 'Depositing...' : 'Deposit Funds'}
+                      </button>
+                    )}
+                    {job.fundsDeposited && !job.workSubmitted && (
+                      <button
+                        className="action-btn cancel-btn"
+                        onClick={() => handleCancelJob(job.id)}
+                        disabled={actionLoading === job.id}
+                      >
+                        {actionLoading === job.id ? 'Cancelling...' : 'Cancel Job'}
+                      </button>
+                    )}
+                    {job.workSubmitted && !job.paymentReleased && (
+                      <button
+                        className="action-btn release-btn"
+                        onClick={() => handleReleasePayment(job.id)}
+                        disabled={actionLoading === job.id}
+                      >
+                        {actionLoading === job.id ? 'Releasing...' : 'Release Payment'}
+                      </button>
+                    )}
+                  </>
                 )}
-                {job.workSubmitted && !job.paymentReleased && (
-                  <button
-                    className="action-btn release-btn"
-                    onClick={() => handleReleasePayment(job.id)}
-                    disabled={actionLoading === job.id}
-                  >
-                    {actionLoading === job.id ? 'Releasing...' : 'Release Payment'}
-                  </button>
+
+                {userRole === 'freelancer' && (
+                  <>
+                    {job.fundsDeposited && !job.workSubmitted && (
+                      <button
+                        className="action-btn submit-btn"
+                        onClick={() => handleSubmitWork(job.id)}
+                        disabled={actionLoading === job.id}
+                      >
+                        {actionLoading === job.id ? 'Submitting...' : 'Submit Work'}
+                      </button>
+                    )}
+                  </>
+                )}
+
+                {job.paymentReleased && (
+                  <div className="action-btn completed-btn">✓ Completed</div>
                 )}
               </>
-            )}
-
-            {userRole === 'freelancer' && (
-              <>
-                {job.fundsDeposited && !job.workSubmitted && (
-                  <button
-                    className="action-btn submit-btn"
-                    onClick={() => handleSubmitWork(job.id)}
-                    disabled={actionLoading === job.id}
-                  >
-                    {actionLoading === job.id ? 'Submitting...' : 'Submit Work'}
-                  </button>
-                )}
-              </>
-            )}
-
-            {job.paymentReleased && (
-              <div className="action-btn completed-btn">✓ Completed</div>
             )}
           </div>
         </div>
