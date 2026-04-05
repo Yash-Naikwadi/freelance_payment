@@ -20,7 +20,7 @@ export default function Navigation({ onDisconnect, account, userRole }) {
           <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
             <Zap className="w-5 h-5 text-white" />
           </div>
-          <span className="text-xl font-bold text-slate-900">FreelanceChain</span>
+          <span className="text-xl font-bold text-slate-900">Freelance Payment System</span>
         </div>
 
         <div className="flex items-center gap-4">

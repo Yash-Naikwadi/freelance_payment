@@ -30,7 +30,7 @@ export default function RegisterForm() {
   return (
     <div className="register-form">
       <div className="register-header">
-        <h1>Welcome to FreelanceChain</h1>
+        <h1>Welcome to Freelance Payment System</h1>
         <p>Choose your role to get started with secure blockchain payments.</p>
       </div>
 

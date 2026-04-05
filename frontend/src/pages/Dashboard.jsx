@@ -35,7 +35,7 @@ export default function Dashboard() {
         <div className="navbar-left">
           <div className="logo">
             <span className="logo-icon">⚡</span>
-            <span className="logo-text">FreelanceChain</span>
+            <span className="logo-text">Freelance Payment System</span>
           </div>
         </div>
         <div className="navbar-right">

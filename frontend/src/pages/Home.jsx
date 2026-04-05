@@ -23,7 +23,7 @@ export default function Home() {
         <div className="navbar-content">
           <div className="logo">
             <span className="logo-icon">⚡</span>
-            <span className="logo-text">FreelanceChain</span>
+            <span className="logo-text">Freelance Payment System</span>
           </div>
           <div className="nav-subtitle">Secure Blockchain Payments</div>
         </div>
@@ -31,26 +31,6 @@ export default function Home() {
 
       <main className="home-main">
         <div className="hero-section">
-          <h1>Secure Freelance Payments on Blockchain</h1>
-          <p>Connect your wallet to post jobs, submit work, and release payments with complete transparency and security.</p>
-
-          <div className="features-grid">
-            <div className="feature-card">
-              <div className="feature-icon">🔒</div>
-              <h3>Escrow Protection</h3>
-              <p>Funds are held securely until work is submitted and approved.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">⚡</div>
-              <h3>Instant Settlement</h3>
-              <p>Payments are released instantly on blockchain with no intermediaries.</p>
-            </div>
-            <div className="feature-card">
-              <div className="feature-icon">📊</div>
-              <h3>Transparent Workflow</h3>
-              <p>Every transaction is recorded on-chain for complete transparency.</p>
-            </div>
-          </div>
 
           <div className="cta-section">
             <h2>Ready to get started?</h2>
@@ -74,10 +54,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      <footer className="footer">
-        <p>&copy; 2024 FreelanceChain. All rights reserved.</p>
-      </footer>
     </div>
   );
 }
